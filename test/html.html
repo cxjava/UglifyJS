@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sign in &middot; Twitter Bootstrap</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Le styles -->
+  <link href="../assets/css/bootstrap.css" rel="stylesheet">
+  <style type="text/css">
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
+
+    </style>
+  <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+  <script src="../assets/js/html5shiv.js"></script>
+  <![endif]-->
+
+  <!-- Fav and touch icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+  <link rel="shortcut icon" href="../assets/ico/favicon.png"></head>
+
+<body>
+
+  <div class="container">
+
+    <form class="form-signin">
+      <h2 class="form-signin-heading">Please sign in</h2>
+      <input type="text" class="input-block-level" placeholder="Email address">
+      <input type="password" class="input-block-level" placeholder="Password">
+      <label class="checkbox">
+        <input type="checkbox" value="remember-me">Remember me</label>
+      <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+
+      <div class="control-group">
+        <label class="control-label" for="menus">权限:</label>
+        <div class="controls">
+          <select name="availableAttributes" multiple="true" size="10">
+
+            <option value="1">aa11</option>
+            <option value="2">aa12</option>
+            <option value="3">aa13</option>
+            <option value="4">aa14</option>
+            <option value="5">aa15</option>
+            <option value="6">aa16</option>
+          </select>
+
+          <input type="button" name="addSelectedAttributes" value="-->"></input>
+          <input type="button" name="removeSelectedAttributes"  value="&lt;--"></input>
+
+          <select name="selectedAttributes" multiple="true" size="10">
+
+          </select>
+          <input type="button" id="moveUp" value="moveUp" />
+          &nbsp;&nbsp;
+          <input type="button" id="moveDown" value="moveDown"/>
+        </div>
+      </div>
+    </form>
+
+  </div>
+  <!-- /container -->
+
+  <!-- Le javascript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="../assets/js/jquery.js"></script>
+  <script type="text/javascript">
+ $(document).ready(function () {
+     $.fn.reverse = [].reverse;
+     var selectedAttributes = "select[name='selectedAttributes']",
+      availableAttributes = "select[name='availableAttributes']",
+      optionSelected = " option:selected";
+     $("#moveUp,#moveDown").click(function () {
+         var $selectedOptions = $(selectedAttributes + optionSelected);
+         if (!$selectedOptions.length) {
+             return;
+         }
+         var isMoveUp = (this.id == "moveUp");
+         //Down, reverse the results array, from down to up
+         if (!isMoveUp) {
+             $selectedOptions.reverse();
+         }
+         $selectedOptions.each(function (i) {
+             var $src = $(this);
+             var $dst = $src[isMoveUp ? "prev" : "next"]();
+             //If a moving object is selected, do not move
+             if ($dst.length && $dst[0].selected) {
+                 return;
+             }
+             $dst[isMoveUp ? "before" : "after"]($src);
+         });
+     });
+
+     $('input[name="addSelectedAttributes"]').click(function () {
+         $(availableAttributes + optionSelected).each(function () {
+             $(selectedAttributes).append("<option value='" + $(this).val() + "'>" + $(this).text() + "</option");
+             $(this).remove();　
+         });
+
+     });
+
+     $('input[name="removeSelectedAttributes"]').click(function () {
+         $(selectedAttributes + optionSelected).each(function () {
+             $(availableAttributes).append("<option value='" + $(this).val() + "'>" + $(this).text() + "</option");
+             $(this).remove();　
+         });
+     });
+
+  var validNavigation = false;
+  $(document).bind('keypress', function(e) {
+    console.log(e.keyCode);
+      if (e.keyCode == 116){
+        validNavigation = true;
+      }
+    });
+  
+  
+  var UnloadConfirm = {};
+  UnloadConfirm.MSG_UNLOAD = "数据尚未保存，离开后可能会导致数据丢失\n\n您确定要离开吗？";
+  UnloadConfirm.set = function(a) {
+      window.onbeforeunload = function(b) {
+          b = b || window.event;
+          console.log(validNavigation);
+          if (validNavigation) {
+            console.log("F5");
+            b.stopPropogation();
+             validNavigation = false;
+              return false;
+           }
+          b.returnValue = a;
+          return a
+      }
+  };
+  UnloadConfirm.clear = function() {
+      fckDraft.delDraftById();
+      window.onbeforeunload = function() {}
+  };
+  UnloadConfirm.set(UnloadConfirm.MSG_UNLOAD);
+
+
+ });
+  </script>
+
+  </body>
+  </html>

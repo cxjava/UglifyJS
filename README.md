@@ -6,7 +6,8 @@
 
 安装步骤
 
-0. 安装nodejs运行环境:http://nodejs.org/,设置nodejs的安装目录到PATH中，一句话CMD中输入 
+0. 安装nodejs运行环境:http://nodejs.org/,
+  设置nodejs的安装目录到PATH中，一句话CMD中输入 
 ```
 node --version：
 --->C:\Users\xin>node --version

@@ -6,7 +6,8 @@
 
 安装步骤
 
-0. 安装nodejs运行环境:http://nodejs.org/,设置nodejs的安装目录到PATH中，一句话CMD中输入 
+0. 安装nodejs运行环境:http://nodejs.org/,
+  设置nodejs的安装目录到PATH中，一句话CMD中输入 
 ```
 node --version：
 --->C:\Users\xin>node --version
@@ -22,4 +23,4 @@ node --version：
 选中 test.js, 执行右键菜单“Process with UglifyJS”，会生成 test-min.js.
 
 ## 详情访问
-[`UglifyJS压缩js文件和jsp里面的js代码`]( http://matychen.iteye.com/blog/1536996)
+[UglifyJS压缩js文件和jsp里面的js代码]( http://matychen.iteye.com/blog/1536996)
